@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="Api/Api.csproj" Id="e3f8b0d1-b7d4-4c7d-8472-305e6f08d735" />
+  </Folder>
+  <Folder Name="/test/" />
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+</Solution>

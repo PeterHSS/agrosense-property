@@ -1,0 +1,35 @@
+services:
+  agrosense-property-db:
+    container_name: agrosense-property-db
+    image: postgres:15.5-alpine
+    environment:
+      POSTGRES_USER: agrosense
+      POSTGRES_PASSWORD: agrosense
+      POSTGRES_DB: agrosense_property
+      PGDATA: /data/postgres
+    volumes:
+      - agrosense-property-db:/data/postgres
+    ports:
+      - "5331:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agrosense -d agrosense_property"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  agrosense-property-api:
+    container_name: agrosense-property-api
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    environment:
+      ConnectionStrings__Default: Host=agrosense-property-db;Port=5432;Database=agrosense_property;Username=agrosense;Password=agrosense
+    depends_on:
+      agrosense-property-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  agrosense-property-db:
