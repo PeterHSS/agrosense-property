@@ -2,10 +2,11 @@
 using Api.Common.Middlewares;
 using Api.Domain.Abstractions.UseCases;
 using Api.Features.Plot.Create;
+using Api.Features.Plot.Delete;
+using Api.Features.Plot.Update;
 using Api.Features.Property;
 using Api.Features.Property.Create;
-using Api.Features.Property.GetById;
-using Api.Features.Property.GetByProducerId;
+using Api.Features.Property.GetPropertiesFromProducer;
 using Api.Infrastructure.Persistence.Contexts;
 using Api.Infrastructure.Providers;
 using FluentValidation;
@@ -95,11 +96,11 @@ public static class DependencyInjectionExtension
     private static IServiceCollection AddUseCases(this IServiceCollection services)
     {
         services.AddScoped<IUseCase<CreatePropertyRequest>, CreatePropertyUseCase>();
-        
-        services.AddScoped<IUseCase<GetPropertyByIdRequest, PropertyResponse>, GetPropertyByIdUseCase>();
-        services.AddScoped<IUseCase<GetByProducerIdRequest, IEnumerable<PropertyResponse>>, GetPropertiesByProducerIdUseCase>();
-        
-        services.AddScoped<IUseCase<CreatePlotRequest>, CreatePlotUseCase>(); 
+        services.AddScoped<IUseCase<GetFromCurrentUser, IEnumerable<PropertyResponse>>, GetPropertiesFromProducerUseCase>();
+
+        services.AddScoped<IUseCase<CreatePlotRequest>, CreatePlotUseCase>();
+        services.AddScoped<IUseCase<DeletePlotRequest>, DeletePlotUseCase>();
+        services.AddScoped<IUseCase<UpdatePlotRequest>, UpdatePlotUseCase>();
 
         return services;
     }

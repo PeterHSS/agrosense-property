@@ -48,9 +48,6 @@ namespace Api.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("PropertyId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("PropertyId1")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -62,8 +59,6 @@ namespace Api.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("PropertyId")
                         .HasDatabaseName("IX_Plots_PropertyId");
-
-                    b.HasIndex("PropertyId1");
 
                     b.ToTable("Plots", (string)null);
                 });
@@ -124,9 +119,6 @@ namespace Api.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("ProducerId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ProducerId1")
-                        .HasColumnType("uuid");
-
                     b.Property<decimal>("TotalArea")
                         .HasPrecision(10, 2)
                         .HasColumnType("numeric(10,2)");
@@ -140,23 +132,14 @@ namespace Api.Infrastructure.Persistence.Migrations
                     b.HasIndex("ProducerId")
                         .HasDatabaseName("IX_Properties_ProducerId");
 
-                    b.HasIndex("ProducerId1");
-
                     b.ToTable("Properties", (string)null);
                 });
 
             modelBuilder.Entity("Api.Domain.Entities.Plot", b =>
                 {
-                    b.HasOne("Api.Domain.Entities.Property", null)
+                    b.HasOne("Api.Domain.Entities.Property", "Property")
                         .WithMany("Plots")
                         .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Plots_Properties");
-
-                    b.HasOne("Api.Domain.Entities.Property", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -165,16 +148,9 @@ namespace Api.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Api.Domain.Entities.Property", b =>
                 {
-                    b.HasOne("Api.Domain.Entities.Producer", null)
+                    b.HasOne("Api.Domain.Entities.Producer", "Producer")
                         .WithMany("Properties")
                         .HasForeignKey("ProducerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Properties_Producers");
-
-                    b.HasOne("Api.Domain.Entities.Producer", "Producer")
-                        .WithMany()
-                        .HasForeignKey("ProducerId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

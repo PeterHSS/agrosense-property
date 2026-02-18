@@ -29,7 +29,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Features\Plot\Update\" />
 		<Folder Include="Infrastructure\Persistence\Migrations\" />
 	</ItemGroup>
 

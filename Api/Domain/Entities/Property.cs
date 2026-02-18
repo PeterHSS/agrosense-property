@@ -4,6 +4,7 @@ public class Property
 {
     public Guid Id { get; set; }
     public Guid ProducerId { get; set; }
+    public Producer Producer { get; set; } = null!;
     public string Name { get; set; } = string.Empty;
     public string Location { get; set; } = string.Empty;
     public decimal TotalArea { get; set; }

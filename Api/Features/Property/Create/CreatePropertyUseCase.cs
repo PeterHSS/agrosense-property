@@ -1,6 +1,5 @@
 ﻿using Api.Common;
 using Api.Domain.Abstractions.UseCases;
-using Api.Domain.Entities;
 using Api.Infrastructure.Persistence.Contexts;
 using Api.Infrastructure.Providers;
 using FluentValidation;
@@ -25,7 +24,7 @@ internal sealed class CreatePropertyUseCase(AgroSenseDbContext context, IValidat
 
         if (producer is null)
         {
-            producer = new Producer
+            producer = new Domain.Entities.Producer
             {
                 Id = Guid.NewGuid(),
                 UserId = currentUser.UserId,
@@ -36,7 +35,15 @@ internal sealed class CreatePropertyUseCase(AgroSenseDbContext context, IValidat
             context.Producers.Add(producer);
         }
 
-        var property = request.ToProperty(producer.Id);
+        var property = new Domain.Entities.Property
+        {
+            Id = Guid.NewGuid(),
+            ProducerId = producer.Id,
+            Name = request.Name,
+            Location = request.Location,
+            TotalArea = request.TotalArea,
+            CreatedAt = DateTime.UtcNow,
+        };
 
         context.Properties.Add(property);
         

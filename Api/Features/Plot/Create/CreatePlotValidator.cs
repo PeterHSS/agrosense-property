@@ -15,7 +15,6 @@ internal sealed class CreatePlotValidator : AbstractValidator<CreatePlotRequest>
             .MaximumLength(100).WithMessage("Crop must not exceed 100 characters.");
 
         RuleFor(request => request.Area)
-            .GreaterThan(0).WithMessage("Area must be greater than zero.")
-            .PrecisionScale(2, 10, false).WithMessage("Area must have up to 10 digits in total and 2 decimal places.");
+            .GreaterThan(0).WithMessage("Area must be greater than zero.");
     }
 }

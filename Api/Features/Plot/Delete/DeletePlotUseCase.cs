@@ -11,18 +11,18 @@ internal sealed class DeletePlotUseCase(AgroSenseDbContext context, ICurrentUser
 {
     public async Task<Result> Handle(DeletePlotRequest request)
     {
-        var plot = await context.Plots.FindAsync(request.PlotId);
-
-        if (plot is null)
-            return Result.Failure(PlotErrors.NotFound(request.PlotId));
-
         var producer = await context.Producers.SingleOrDefaultAsync(producer => producer.UserId == currentUser.UserId);
 
         if (producer is null)
             return Result.Failure(ProducerErrors.NotFound);
 
-        if (plot.Property.ProducerId != producer.Id && !currentUser.IsAdmin)
-            return Result.Failure(PlotErrors.PlotDoesntBelongToCurrentUser);
+        var plot = await context.Plots.FindAsync(request.PlotId);
+
+        if (plot is null)
+            return Result.Failure(PlotErrors.NotFound(request.PlotId));
+
+        if (plot.Property.ProducerId != producer.Id)
+            return Result.Failure(PlotErrors.PlotDoesntBelongToProducer);
 
         context.Plots.Remove(plot);
         
