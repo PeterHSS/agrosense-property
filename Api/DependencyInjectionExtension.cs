@@ -13,6 +13,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 namespace Api;
@@ -34,6 +35,7 @@ public static class DependencyInjectionExtension
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddOpenApi();
         services.AddJwtAuthenticationAndAuthorization(configuration);
+        services.AddHealthChecks();
 
         return services;
     }
@@ -74,6 +76,13 @@ public static class DependencyInjectionExtension
         using var context = scope.ServiceProvider.GetRequiredService<AgroSenseDbContext>();
 
         context.Database.Migrate();
+    }
+
+    public static IHostBuilder AddSerilog(this IHostBuilder hostBuilder)
+    {
+        hostBuilder.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
+
+        return hostBuilder;
     }
 
     private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
