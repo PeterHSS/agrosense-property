@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Features.Plot.Delete;
 
-internal sealed class DeletePlotUseCase(AgroSenseDbContext context, ICurrentUserProvider currentUser) : IUseCase<DeletePlotRequest>
+public sealed class DeletePlotUseCase(AgroSenseDbContext context, ICurrentUserProvider currentUser) : IUseCase<DeletePlotRequest>
 {
     public async Task<Result> Handle(DeletePlotRequest request)
     {

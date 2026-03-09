@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Features.Plot.Create;
 
-internal sealed class CreatePlotUseCase(AgroSenseDbContext context, IValidator<CreatePlotRequest> validator, ICurrentUserProvider currentUser) : IUseCase<CreatePlotRequest>
+public sealed class CreatePlotUseCase(AgroSenseDbContext context, IValidator<CreatePlotRequest> validator, ICurrentUserProvider currentUser) : IUseCase<CreatePlotRequest>
 {
     public async Task<Result> Handle(CreatePlotRequest request)
     {

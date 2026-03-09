@@ -1,11 +1,11 @@
-﻿
-using Api.Common;
+﻿using Api.Common;
 using Api.Domain.Abstractions.UseCases;
 using Api.Features.Plot;
-using Api.Features.Plot.Update;
 using Api.Infrastructure.Persistence.Contexts;
 using Api.Infrastructure.Providers;
 using Microsoft.EntityFrameworkCore;
+
+namespace Api.Features.Plot.Update;
 
 public class UpdatePlotUseCase(AgroSenseDbContext context, ICurrentUserProvider currentUser) : IUseCase<UpdatePlotRequest>
 {

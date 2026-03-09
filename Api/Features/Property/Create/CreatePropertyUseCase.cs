@@ -6,7 +6,7 @@ using FluentValidation;
 
 namespace Api.Features.Property.Create;
 
-internal sealed class CreatePropertyUseCase(AgroSenseDbContext context, IValidator<CreatePropertyRequest> validator, ICurrentUserProvider currentUser)
+public sealed class CreatePropertyUseCase(AgroSenseDbContext context, IValidator<CreatePropertyRequest> validator, ICurrentUserProvider currentUser)
     : IUseCase<CreatePropertyRequest>
 {
     public async Task<Result> Handle(CreatePropertyRequest request)

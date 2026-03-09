@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Features.Property.GetPropertiesFromProducer;
 
-internal sealed class GetPropertiesFromProducerUseCase(AgroSenseDbContext context, ICurrentUserProvider currentUser) : IUseCase<GetFromCurrentUser, IEnumerable<PropertyResponse>>
+public sealed class GetPropertiesFromProducerUseCase(AgroSenseDbContext context, ICurrentUserProvider currentUser) : IUseCase<GetFromCurrentUser, IEnumerable<PropertyResponse>>
 {
     public async Task<Result<IEnumerable<PropertyResponse>>> Handle(GetFromCurrentUser request)
     {

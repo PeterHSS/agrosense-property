@@ -3,7 +3,7 @@ using System.Security.Claims;
 
 namespace Api.Infrastructure.Providers;
 
-internal sealed class CurrentUserProvider(IHttpContextAccessor contextAccessor) : ICurrentUserProvider
+public sealed class CurrentUserProvider(IHttpContextAccessor contextAccessor) : ICurrentUserProvider
 {
     public Guid UserId 
         => Guid.TryParse(contextAccessor?.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var userId)

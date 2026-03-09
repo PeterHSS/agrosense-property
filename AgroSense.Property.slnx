@@ -2,5 +2,7 @@
   <Folder Name="/src/">
     <Project Path="Api/Api.csproj" Id="e3f8b0d1-b7d4-4c7d-8472-305e6f08d735" />
   </Folder>
-  <Folder Name="/test/" />
+  <Folder Name="/test/">
+    <Project Path="Test/Test.csproj" Id="b509966a-f8ed-4f0c-a3a6-c656c08973a9" />
+  </Folder>
 </Solution>
